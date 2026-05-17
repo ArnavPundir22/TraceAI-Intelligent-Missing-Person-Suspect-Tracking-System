@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TraceAI — Forensic Surveillance Intelligence</title>
+  <meta name="description" content="AI-powered forensic intelligence platform for automated person tracing and movement reconstruction across distributed surveillance systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <!-- Animated background -->
+  <div class="bg-grid"></div>
+  <div class="scanline"></div>
+
+  <div class="app-shell">
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="#00d4ff" stroke-width="2"/>
+            <circle cx="16" cy="16" r="6" fill="#00d4ff" opacity="0.3"/>
+            <circle cx="16" cy="16" r="3" fill="#00d4ff"/>
+            <line x1="16" y1="2" x2="16" y2="8" stroke="#00d4ff" stroke-width="2"/>
+            <line x1="16" y1="24" x2="16" y2="30" stroke="#00d4ff" stroke-width="2"/>
+            <line x1="2" y1="16" x2="8" y2="16" stroke="#00d4ff" stroke-width="2"/>
+            <line x1="24" y1="16" x2="30" y2="16" stroke="#00d4ff" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">TraceAI</span>
+          <span class="logo-sub">Forensic Intelligence</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-page="dashboard" title="Dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-page="cameras" title="Live Cameras">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>
+          </svg>
+          <span>Live Cameras</span>
+          <span class="nav-badge" id="active-cam-badge">0</span>
+        </button>
+        <button class="nav-item" data-page="persons" title="Person Database">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Persons</span>
+        </button>
+        <button class="nav-item" data-page="search" title="Identity Search">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <span>Search</span>
+        </button>
+        <button class="nav-item" data-page="timeline" title="Movement Timeline">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          <span>Timeline</span>
+        </button>
+        <button class="nav-item" data-page="alerts" title="Alerts">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span>Alerts</span>
+          <span class="nav-badge alert-badge" id="alert-count-badge">0</span>
+        </button>
+        <button class="nav-item" data-page="upload" title="Upload Video">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 16 12 12 8 16"/>
+            <line x1="12" y1="12" x2="12" y2="21"/>
+            <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+          </svg>
+          <span>Upload</span>
+        </button>
+        <button class="nav-item" data-page="analytics" title="Analytics">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <span>Analytics</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <span class="status-dot pulse"></span>
+          <span>System Online</span>
+        </div>
+        <div class="ws-status" id="ws-status">
+          <span class="status-dot" id="ws-dot"></span>
+          <span id="ws-label">Connecting…</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <h1 class="page-title" id="page-title">Dashboard</h1>
+          <span class="page-subtitle" id="page-subtitle">Real-time surveillance intelligence overview</span>
+        </div>
+        <div class="top-bar-right">
+          <div class="datetime-display" id="datetime-display"></div>
+          <button class="icon-btn" id="alert-bell" title="Alerts">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="bell-dot hidden" id="bell-dot"></span>
+          </button>
+          <div class="user-chip">
+            <div class="user-avatar">A</div>
+            <span>Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Toast notifications -->
+      <div id="toast-container"></div>
+
+      <!-- Pages -->
+      <div class="page active" id="page-dashboard"><!-- filled by JS --></div>
+      <div class="page" id="page-cameras"><!-- filled by JS --></div>
+      <div class="page" id="page-persons"><!-- filled by JS --></div>
+      <div class="page" id="page-search"><!-- filled by JS --></div>
+      <div class="page" id="page-timeline"><!-- filled by JS --></div>
+      <div class="page" id="page-alerts"><!-- filled by JS --></div>
+      <div class="page" id="page-upload"><!-- filled by JS --></div>
+      <div class="page" id="page-analytics"><!-- filled by JS --></div>
+    </main>
+  </div>
+
+  <!-- Modals -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal-box" id="modal-box"></div>
+  </div>
+
+  <script src="src/api.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
