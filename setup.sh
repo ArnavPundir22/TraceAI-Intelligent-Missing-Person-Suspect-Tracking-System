@@ -8,11 +8,11 @@ echo "==> Creating virtual environment at $VENV_DIR"
 python3 -m venv "$VENV_DIR"
 source "$VENV_DIR/bin/activate"
 
-echo "==> Upgrading pip tooling"
-python -m pip install --upgrade pip setuptools wheel
+echo "==> Installing pip tooling"
+python -m pip install --upgrade pip "setuptools<81" wheel
 
 echo "==> Installing backend dependencies"
-python -m pip install -r "$ROOT_DIR/backend/requirements.txt"
+PIP_NO_BUILD_ISOLATION=1 python -m pip install -r "$ROOT_DIR/backend/requirements.txt"
 
 echo "==> Verifying backend imports"
 python -m compileall "$ROOT_DIR/backend"

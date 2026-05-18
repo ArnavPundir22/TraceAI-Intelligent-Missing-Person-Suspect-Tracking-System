@@ -43,7 +43,7 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-This creates a virtual environment, upgrades pip tooling, installs backend dependencies, and compiles the backend sources as a quick verification step.
+This creates a virtual environment, installs compatible pip tooling, installs backend dependencies, and compiles the backend sources as a quick verification step.
 
 ### 2. Manual setup
 
