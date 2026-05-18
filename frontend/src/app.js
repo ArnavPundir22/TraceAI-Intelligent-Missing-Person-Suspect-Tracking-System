@@ -1,4 +1,6 @@
 (() => {
+  const DATA_REFRESH_INTERVAL_MS = 60000;
+  const WS_PING_INTERVAL_MS = 20000;
   const appLocale = document.documentElement.lang || navigator.language || 'en-US';
   const state = {
     currentPage: 'dashboard',
@@ -77,7 +79,7 @@
     navigate(state.currentPage);
     refreshAllData();
     connectWebSocket();
-    state.periodicRefreshTimer = window.setInterval(refreshAllData, 30000);
+    state.periodicRefreshTimer = window.setInterval(refreshAllData, DATA_REFRESH_INTERVAL_MS);
     window.addEventListener('beforeunload', cleanup);
   }
 
@@ -1334,7 +1336,7 @@
           if (state.ws && state.ws.readyState === WebSocket.OPEN) {
             state.ws.send(JSON.stringify({ type: 'ping', timestamp: new Date().toISOString() }));
           }
-        }, 25000);
+        }, WS_PING_INTERVAL_MS);
       });
 
       state.ws.addEventListener('message', (event) => {

@@ -12,7 +12,7 @@ os.chdir(BACKEND_DIR)
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the TraceAI backend server")
-    parser.add_argument("--host", default=os.getenv("TRACEAI_HOST", "0.0.0.0"))
+    parser.add_argument("--host", default=os.getenv("TRACEAI_HOST", "127.0.0.1"))
     parser.add_argument("--port", type=int, default=int(os.getenv("TRACEAI_PORT", "8000")))
     parser.add_argument(
         "--reload",
