@@ -10,7 +10,7 @@ TraceAI is a real-time forensic surveillance intelligence platform for identifyi
 - Camera management with live stream start/stop controls
 - Timeline reconstruction and recent alert monitoring
 - Batch video upload with background processing status tracking
-- WebSocket-powered live frame and alert updates
+- WebSocket-powered live frame and alert updates 
 
 ## Project Structure
 
