@@ -11,8 +11,11 @@ source "$VENV_DIR/bin/activate"
 echo "==> Installing pip tooling"
 python -m pip install --upgrade pip "setuptools<81" wheel
 
+echo "==> Installing build prerequisites"
+python -m pip install numpy==1.26.4 cython
+
 echo "==> Installing backend dependencies"
-PIP_NO_BUILD_ISOLATION=1 python -m pip install -r "$ROOT_DIR/backend/requirements.txt"
+python -m pip install --no-build-isolation -r "$ROOT_DIR/backend/requirements.txt"
 
 echo "==> Verifying backend imports"
 python -m compileall "$ROOT_DIR/backend"

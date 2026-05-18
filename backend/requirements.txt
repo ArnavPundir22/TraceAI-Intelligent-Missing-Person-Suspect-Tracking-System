@@ -30,4 +30,4 @@ rich==13.7.1
 python-dotenv==1.0.1
 shapely==2.0.4
 filterpy==1.4.5
-lap==0.4.0
+lap==0.5.13
