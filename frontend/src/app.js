@@ -2,6 +2,9 @@
   const DATA_REFRESH_INTERVAL_MS = 60000;
   const WS_PING_INTERVAL_MS = 20000;
   const appLocale = document.documentElement.lang || navigator.language || 'en-US';
+  const apiOrigin = window.TRACEAI_API_ORIGIN
+    || window.localStorage.getItem('traceai-api-origin')
+    || `${window.location.protocol === 'file:' ? 'http:' : window.location.protocol}//${window.location.hostname || '127.0.0.1'}:${window.location.port || '8000'}`;
   const state = {
     currentPage: 'dashboard',
     dashboard: null,
@@ -1515,12 +1518,12 @@
   }
 
   function getPersonImageUrl(personId) {
-    return `${window.location.protocol === 'file:' ? 'http://localhost:8000' : ''}/api/v1/persons/${personId}/face-image`;
+    return `${window.location.protocol === 'file:' ? apiOrigin : ''}/api/v1/persons/${personId}/face-image`;
   }
 
   function getWebSocketUrl() {
     if (window.location.protocol === 'file:') {
-      return 'ws://localhost:8000/ws';
+      return `${apiOrigin.replace(/^http/, 'ws')}/ws`;
     }
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     return `${protocol}//${window.location.host}/ws`;

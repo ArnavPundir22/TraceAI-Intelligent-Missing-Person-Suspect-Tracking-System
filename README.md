@@ -67,6 +67,12 @@ Optional development reload:
 python backend/run.py --reload
 ```
 
+For network access from another machine, override the default localhost bind:
+
+```bash
+TRACEAI_HOST=0.0.0.0 python backend/run.py
+```
+
 ## Access Points
 
 - Dashboard: `http://localhost:8000`
@@ -88,5 +94,6 @@ python backend/run.py --reload
 ## Notes
 
 - The backend serves the frontend directly, so only the FastAPI server needs to be started.
+- When opening `frontend/index.html` directly from disk instead of through FastAPI, set `window.TRACEAI_API_ORIGIN` (or `localStorage.traceai-api-origin`) if the backend is running on a non-default origin or port.
 - If heavyweight AI dependencies are unavailable at runtime, the backend falls back to mock detection/embedding behavior for demos where implemented.
 - Uploaded files, generated embeddings, snapshots, logs, and the SQLite database are stored under `backend/data/`.
