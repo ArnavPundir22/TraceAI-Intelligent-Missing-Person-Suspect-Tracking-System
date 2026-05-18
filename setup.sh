@@ -9,6 +9,8 @@ python3 -m venv "$VENV_DIR"
 source "$VENV_DIR/bin/activate"
 
 echo "==> Installing pip tooling"
+# `lap` and related native builds still rely on pkg_resources, so keep setuptools
+# below the latest major where that compatibility regressed during our setup test.
 python -m pip install --upgrade pip "setuptools<81" wheel
 
 echo "==> Installing build prerequisites"

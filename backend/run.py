@@ -39,7 +39,7 @@ def main() -> None:
     try:
         import uvicorn
     except ImportError:
-        print("Missing dependencies. Run: pip install -r backend/requirements.txt")
+        print("Missing dependencies. Run: pip install -r requirements.txt")
         raise SystemExit(1)
 
     args = parse_args()

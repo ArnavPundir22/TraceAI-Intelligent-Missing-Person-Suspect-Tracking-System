@@ -1,4 +1,5 @@
 (() => {
+  const appLocale = document.documentElement.lang || navigator.language || 'en-US';
   const state = {
     currentPage: 'dashboard',
     dashboard: null,
@@ -1487,7 +1488,7 @@
 
   function startClock() {
     const update = () => {
-      els.datetime.textContent = new Intl.DateTimeFormat('en-IN', {
+      els.datetime.textContent = new Intl.DateTimeFormat(appLocale, {
         dateStyle: 'medium',
         timeStyle: 'medium',
       }).format(new Date());
@@ -1547,7 +1548,7 @@
 
   function formatShortDate(value) {
     if (!value) return '—';
-    return new Intl.DateTimeFormat('en-IN', {
+    return new Intl.DateTimeFormat(appLocale, {
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
