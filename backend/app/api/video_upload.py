@@ -15,7 +15,7 @@ from sqlalchemy import select
 import aiofiles
 
 from app.config import settings
-from app.models.database import get_db, Camera, Detection, TimelineEvent, CameraStatus
+from app.models.database import get_db, AsyncSessionLocal, Camera, Detection, TimelineEvent, CameraStatus
 from app.services.detection_service import detection_service
 from app.services.embedding_service import embedding_service
 from app.services.tracker_service import ByteTracker
@@ -153,7 +153,7 @@ async def _process_video_background(job_id: str, camera_id: int, video_path: str
 
                 ts = _frame_to_timestamp(cap, frame_idx)
 
-                async with AsyncSessionLocal_ctx() as db:
+                async with AsyncSessionLocal() as db:
                     det = Detection(
                         person_id=person_id,
                         camera_id=camera_id,
@@ -192,9 +192,3 @@ def _frame_to_timestamp(cap, frame_idx: int) -> datetime:
     seconds_offset = frame_idx / fps
     from datetime import timedelta
     return datetime.utcnow() - timedelta(seconds=seconds_offset)
-
-
-# Lazy import to avoid circular
-async def AsyncSessionLocal_ctx():
-    from app.models.database import AsyncSessionLocal
-    return AsyncSessionLocal()

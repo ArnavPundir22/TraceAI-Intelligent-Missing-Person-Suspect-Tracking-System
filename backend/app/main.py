@@ -127,8 +127,13 @@ async def health():
 FRONTEND_DIR = Path(__file__).resolve().parent.parent.parent / "frontend"
 
 if FRONTEND_DIR.exists():
-    app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR / "src")), name="static")
-    app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIR / "assets")), name="assets")
+    src_dir = FRONTEND_DIR / "src"
+    assets_dir = FRONTEND_DIR / "assets"
+
+    if src_dir.exists():
+        app.mount("/src", StaticFiles(directory=str(src_dir)), name="src")
+    if assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="assets")
 
     @app.get("/{path:path}", include_in_schema=False)
     async def serve_frontend(path: str):
