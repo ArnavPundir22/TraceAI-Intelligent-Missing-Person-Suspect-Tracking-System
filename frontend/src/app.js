@@ -1689,9 +1689,18 @@
     return labels[status] || status || 'Unknown';
   }
 
+  function parseUtcDate(value) {
+    if (!value) return new Date();
+    let str = String(value);
+    if (!str.endsWith('Z') && !str.includes('+') && !str.match(/-\d{2}:\d{2}$/)) {
+      str += 'Z';
+    }
+    return new Date(str);
+  }
+
   function formatRelativeTime(value) {
     if (!value) return 'Unknown';
-    const diffMs = Date.now() - new Date(value).getTime();
+    const diffMs = Date.now() - parseUtcDate(value).getTime();
     const minutes = Math.round(diffMs / 60000);
     if (minutes < 1) return 'just now';
     if (minutes < 60) return `${minutes}m ago`;
@@ -1708,7 +1717,7 @@
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-    }).format(new Date(value));
+    }).format(parseUtcDate(value));
   }
 
   function formatDuration(seconds) {
